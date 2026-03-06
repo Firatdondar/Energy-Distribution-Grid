@@ -1,0 +1,8 @@
+build/
+bin/
+*.o
+*.exe
+.vscode/
+.DS_Store
+financial_analysis.txt
+final_report.txt
