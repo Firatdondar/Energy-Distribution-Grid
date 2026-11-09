@@ -1,41 +1,65 @@
-# European Energy Distribution Simulator
+# ⚡ European Energy Distribution Grid Simulator
 
-An object-oriented C++ simulation designed to analyze and optimize energy distribution networks across European countries using custom graph structures and financial trade logic.
+![C++17](https://img.shields.io/badge/C%2B%2B-17-00599C?logo=c%2B%2B&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-3.10%2B-064F8C?logo=cmake&logoColor=white)
+![Domain](https://img.shields.io/badge/Domain-Power%20Grid%20Optimization-yellow)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-## 📌 Project Overview
-This project simulates an international power grid where countries experience either energy surpluses or deficits. The system parses country data and inter-country distance matrices to determine the most cost-effective energy trading routes. If an energy deficit cannot be resolved through trading, a country must pay a penalty cost. Finally, the system ranks all countries based on their net financial profit or loss.
+An object-oriented **C++17** simulation engine that models cross-border electricity distribution and financial trade across European power grids. It pairs surplus-producing nations with deficit nations along minimum-cost transmission corridors and ranks national grid profitability.
 
-## ⚙️ Core Features
-* **Custom Data Parsing:** Reads and processes complex relational data (`countries.txt` and `power_lines.txt`) without relying on standard string stream libraries, demonstrating low-level string manipulation.
-* **Graph-Based Network:** Represents the energy grid using a dynamic 2D distance matrix.
-* **Financial Optimization:** Calculates trade costs based on distance and unit price, prioritizing the cheapest available energy source to resolve deficits.
-* **Profitability Ranking:** Implements a custom Selection Sort algorithm to rank countries from most profitable to the largest financial deficit.
-* **Dynamic Memory Management:** Strictly utilizes pointers and dynamic arrays (`new`/`delete`) for data storage, avoiding STL containers to demonstrate memory lifecycle control.
+---
 
-## 🛠️ Technologies & Build System
-* **Language:** C++ (Standard 17)
-* **Architecture:** Object-Oriented Programming (OOP)
-* **Build System:** CMake
-* **Compiler:** GCC (MinGW-w64) / Clang / MSVC
+## 📌 Overview
 
-## 🚀 Installation & Execution
+National power grids frequently experience either generation surpluses or consumption deficits. This simulator ingests country-level production/consumption metrics (`data/countries.txt`) and an inter-country transmission distance matrix (`data/power_lines.txt`) to:
+1. Compute net energy balance ($\text{Net} = \text{Production} - \text{Consumption}$) for each country.
+2. Match energy-deficit countries with the most cost-effective surplus exporters based on distance and unit energy tariff.
+3. Apply regulatory penalty costs when deficits cannot be fully satisfied through cross-border trade.
+4. Rank all participating nations from highest net profit to largest financial deficit.
 
-The project relies on CMake for a compiler-agnostic build process.
+---
 
-### Build Steps (Terminal)
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Firatdondar/EnergyDistributionGrid.git
-   cd EnergyDistributionGrid
-   ```
-2. Build with CMake:
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   cmake --build .
-   ```
-3. Run the simulator:
-   ```bash
-   ./EnergyDistributionGrid
-   ```
+## ✨ Key Features
+
+- **2D Adjacency Matrix Grid:** Models cross-border high-voltage transmission distances between European countries.
+- **Greedy Trade Cost Optimizer:** Evaluates unit price and transmission distance to minimize import expenditure for deficit nations.
+- **STL-Free Memory Architecture:** Uses custom raw pointer arrays (`new`/`delete`) and low-level character parsing without STL containers.
+- **Automated Financial Ledger:** Generates `result.txt` with trade transactions, penalty assessments, and Selection-Sorted profitability rankings.
+
+---
+
+## 🗂️ Project Structure
+
+```text
+Energy-Distribution-Grid/
+├── data/
+│   ├── countries.txt        # Country production, consumption, tariffs & penalties
+│   └── power_lines.txt      # Inter-country transmission distance matrix
+├── include/
+│   ├── Country.hpp          # Country entity & energy balance state
+│   └── EnergyGrid.hpp       # Grid matrix, trade matching & sorting engine
+├── src/
+│   └── main.cpp             # Simulation entry point
+├── CMakeLists.txt           # Cross-platform CMake build configuration
+├── LICENSE                  # MIT License
+└── README.md                # Project documentation
+```
+
+---
+
+## 🚀 Build & Run Instructions
+
+```bash
+git clone https://github.com/Firatdondar/Energy-Distribution-Grid.git
+cd Energy-Distribution-Grid
+mkdir build && cd build
+cmake ..
+cmake --build .
+./EnergyDistributionGrid
+```
+
+---
+
+## 📄 License
+
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
